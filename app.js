@@ -1,4 +1,5 @@
 const express = require('express');
+const mongoose = require('mongoose');
 
 const app = express();
 
@@ -18,8 +19,9 @@ mongoose.connect('mongodb+srv://midterm:5VOTsiSCnFMLmcar@cluster0.3voc6.mongodb.
     process.exit(1);
 });
 
-app.use('/', require('./routes/articleRoutes'));
+app.use('/articles', require('./routes/articleRoutes'));
 
 app.get('/', (req, res) => {
-    res.send('Hello, this is the CS157C project!');
+    // res.send('Hello, this is the CS157C project!');
+    res.sendFile('./views/index.html', {root: __dirname});
 });
