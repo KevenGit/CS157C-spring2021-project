@@ -1,0 +1,16 @@
+{
+  "name": "cs157c-team-project",
+  "version": "1.0.0",
+  "description": "MongoDB app for team project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.12.5",
+    "node-fetch": "^2.6.1"
+  }
+}
