@@ -2,8 +2,13 @@ const Article = require("../models/article");
 
 const article_search = (req, res) => {
   //Search Article
-  console.log(req.query.abstract);
-  Article.find({ abstract: { $regex: req.query.abstract } }).then((results) => {
+  console.log(req.query.abstract, req.query.news_desk);
+  Article.find({
+    $and: [
+      { abstract: { $regex: req.query.abstract } },
+      { news_desk: { $regex: req.query.news_desk } },
+    ],
+  }).then((results) => {
     res.send(results);
   });
 };
