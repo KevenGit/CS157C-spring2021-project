@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB Project</title>
+</head>
+<body>
+
+    <div class="details">
+        <h2><%= article.headline.main %></h2>
+        <p><%= article.byline.original %></p>
+
+        <h3>ABSTRACT</h3>
+        <p><%= article.abstract %></p>
+
+        <h3>LEAD PARAGRAPH</h3>
+        <p><%= article.lead_paragraph %></p>
+
+        <p><%= article.web_url %></p>
+    </div>
+
+    <div class="details-buttons">
+        <button id="delete-button" type="button">DELETE</button>
+        <button id="bookmark-button" type="button">BOOKMARK</button>
+    </div>
+
+</body>
+</html>

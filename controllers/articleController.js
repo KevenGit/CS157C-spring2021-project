@@ -1,5 +1,16 @@
 const Article = require("../models/article");
 
+const article_details = (req, res) => {
+  console.log(req.params.id);
+  Article.findById(req.params.id)
+  .then(result => {
+    res.render('details', {article: result});
+  })
+  .catch(err => {
+    res.send(err);
+  });
+}
+
 //Search Article by the Abstract
 const article_search = (req, res) => {
   console.log(req.query.abstract);
@@ -72,6 +83,7 @@ const article_create = (req, res) => {
 const article_bookmark = (req, res) => {};
 
 module.exports = {
+  article_details,
   article_create,
   article_delete,
   article_search,
