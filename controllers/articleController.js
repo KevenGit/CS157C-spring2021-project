@@ -1,98 +1,68 @@
 const Article = require('../models/article');
 
 const article_search = (req, res) => {
-    console.log(req.query);
-    console.log(req.query.city);
-    console.log(req.query.title);
-    Article.find({city: req.query.city})
-    .then(results => {
-        res.send(results);
-    });
     res.send('Check the server console!');
 }
 
 const article_create = (req, res) => { //Insert New Articles
-    console.log(req.body);
-    // const headline = {
-    //     main: doc.headline.main,
-    //     kicker: doc.headline.kicker,
-    //     content_kicker: doc.headline.content_kicker,
-    //     print_headline: doc.headline.print_headline
-    // }
+    const doc = req.body;
 
-    // const byline = {
-    //     original: doc.byline.original,
-    //     organization: doc.byline.organization
-    // }
+    const obj = {
+        abstract: doc.abstract,
+        web_url: doc.web_url,
+        snippet: doc.snippet,
+        lead_paragraph: doc.lead_paragraph,
+        source: doc.source,
 
-    // const article = {
-    //     abstract: doc.abstract,
-    //     web_url: doc.web_url,
-    //     snippet: doc.snippet,
-    //     lead_paragraph: doc.lead_paragraph,
-    //     source: doc.source,
-    //     headline: headline,
-    //     keywords: doc.keywords,
-    //     pub_date: doc.pub_date,
-    //     document_type: doc.document_type,
-    //     news_desk: doc.news_desk,
-    //     section_name: doc.section_name,
-    //     subsection_name: doc.subsection_name,
-    //     byline: byline,
-    //     type_of_material: doc.type_of_material,
-    //     word_count: doc.word_count
-    // }
+        headline: {
+            main: doc.headline_main,
+            kicker: doc.headline_kicker,
+            print_headline: doc.headline_print_headline
+        },
 
-    // const DB = new Article(article);
-   
+        keywords: [],
+
+        pub_date: Date.now().toString,
+        document_type: doc.document_type,
+        news_desk: doc.news_desk,
+        section_name: doc.section_name,
+        subsection_name: doc.subsection_name,
+
+        byline: {
+            original: doc.byline.original,
+            organization: doc.byline.organization
+        },
+        type_of_material: doc.type_of_material,
+        word_count: doc.word_count
+    }
+
+    const article = new Article(obj);
+    article.save()
+    .then(result => {
+        res.send(result);
+    })
+    .catch(err => {
+        console.error(err);
+    });   
 }
 
-const articles_get = async (req, res) => { //Get All Articles
+const article_delete = (req, res) => { //Delete Article
     try{
-        const articles = await Article.find();
-        res.send(articles);
+        const article = await Article.findOneAndDelete({_id: req.params.id})
+        res.send(article)
     }
     catch(error){
-        res.status(500).send(error);
-    }
+        res.status(500).send(error)
+    }   
 }
 
-// const article_delete = (req, res) => { //Delete Article
-//     try{
-//         const article = await Article.findOneAndDelete({_id: req.params.id})
-//         res.send(article)
-//     }
-//     catch(error){
-//         res.status(500).send(error)
-//     }
-   
-// }
-// const article_get = (req, res) => { //Get Specific Article
-//     try{
-//         const article = await Article.find({_id: req.params.id})
-//         res.send(article)
-//     }
-//     catch(error){
-//         res.status(500).send(error)
-//     }
-   
-// }
-// const article_update = (req, res) => { //Update Specific Article
-//     try{
-//         const article = await Article.find({_id: req.params.id})
-//         res.send(article)
-//     }
-//     catch(error){
-//         res.status(500).send(error)
-//     }
-   
-// }
+const article_bookmark = (req, res) => {
+    
+}
 
 module.exports = {
     article_create,
-    // article_delete,
-    // article_get,
-    articles_get,
-    article_search
-    // article_update
+    article_delete,
+    article_search,
+    article_bookmark,
 }
