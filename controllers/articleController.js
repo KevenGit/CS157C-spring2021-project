@@ -1,97 +1,36 @@
 const Article = require('../models/article');
 
-const article_search = (req, res) => {
-    console.log(req.query);
-    console.log(req.query.city);
-    console.log(req.query.title);
-    Article.find({city: req.query.city})
+const article_search = (req, res) => { //Search Article
+    console.log(req.query.abstract);
+    Article.find({abstract: { "$regex": req.query.abstract }})
     .then(results => {
-        res.send(results);
+        res.send(results)
     });
-    res.send('Check the server console!');
+    
 }
 
-const article_create = (req, res) => { //Insert New Articles
-    console.log(req.body);
-    // const headline = {
-    //     main: doc.headline.main,
-    //     kicker: doc.headline.kicker,
-    //     content_kicker: doc.headline.content_kicker,
-    //     print_headline: doc.headline.print_headline
-    // }
-
-    // const byline = {
-    //     original: doc.byline.original,
-    //     organization: doc.byline.organization
-    // }
-
-    // const article = {
-    //     abstract: doc.abstract,
-    //     web_url: doc.web_url,
-    //     snippet: doc.snippet,
-    //     lead_paragraph: doc.lead_paragraph,
-    //     source: doc.source,
-    //     headline: headline,
-    //     keywords: doc.keywords,
-    //     pub_date: doc.pub_date,
-    //     document_type: doc.document_type,
-    //     news_desk: doc.news_desk,
-    //     section_name: doc.section_name,
-    //     subsection_name: doc.subsection_name,
-    //     byline: byline,
-    //     type_of_material: doc.type_of_material,
-    //     word_count: doc.word_count
-    // }
-
-    // const DB = new Article(article);
-   
+ const article_delete = (req, res) => { //Delete Article
+    console.log(req.query.abstract);
+    Article.findOneAndDelete({abstract: { "$regex": req.query.abstract }})
+    .then(results => {
+        console.log(results)
+    });
 }
 
-const articles_get = async (req, res) => { //Get All Articles
-    try{
-        const articles = await Article.find();
-        res.send(articles);
-    }
-    catch(error){
-        res.status(500).send(error);
-    }
+
+const articles_get = (req, res) => { //Get All Articles
+   Article.find()
+    .then(results => {
+    res.send(results)
+});
 }
 
-// const article_delete = (req, res) => { //Delete Article
-//     try{
-//         const article = await Article.findOneAndDelete({_id: req.params.id})
-//         res.send(article)
-//     }
-//     catch(error){
-//         res.status(500).send(error)
-//     }
+
    
-// }
-// const article_get = (req, res) => { //Get Specific Article
-//     try{
-//         const article = await Article.find({_id: req.params.id})
-//         res.send(article)
-//     }
-//     catch(error){
-//         res.status(500).send(error)
-//     }
-   
-// }
-// const article_update = (req, res) => { //Update Specific Article
-//     try{
-//         const article = await Article.find({_id: req.params.id})
-//         res.send(article)
-//     }
-//     catch(error){
-//         res.status(500).send(error)
-//     }
-   
-// }
 
 module.exports = {
     article_create,
-    // article_delete,
-    // article_get,
+    article_delete,
     articles_get,
     article_search
     // article_update

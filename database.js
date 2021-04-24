@@ -46,12 +46,14 @@ const ArticleSchema = mongoose.Schema({
 });
 
 const Article = mongoose.model('test', ArticleSchema);
-
+var i = 0;
 const url = 'https://api.nytimes.com/svc/archive/v1/2019/12.json?api-key=ViUbIuUS3WR6cQUB4KlLQRkduU6CjHIL'
 fetch(url)
 .then(res => res.json())
 .then(data => {
-    const doc = data.response.docs[0];
+    while(i < 100)
+    {
+    const doc = data.response.docs[i];
     const headline = {
         main: doc.headline.main,
         kicker: doc.headline.kicker,
@@ -84,4 +86,6 @@ fetch(url)
 
     const DB = new Article(article);
     DB.save();
+    i++;
+}
 });
