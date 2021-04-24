@@ -16,15 +16,10 @@ const ArticleSchema = mongoose.Schema({
         default: null
     },
 
-    keywords: {
-        type: [{
-            name: {type: String, default: null},
-            value: {type: String, default: null},
-            rank: {type: Number, default: 0},
-            major: {type: String, default: null}
-        }],
-        default: null
-    },
+    keywords: [{
+        name: {type: String, default: null},
+        value: {type: String, default: null},
+    }],
 
     pub_date: {type: String, default: null},
     document_type: {type: String, default: null},
