@@ -1,29 +1,19 @@
 const Article = require("../models/article");
 
-// const article_search = (req, res) => {
-//   //Search Article
-//   console.log(req.query.abstract, req.query.news_desk);
-//   Article.find({
-//     $and: [
-//       { abstract: { $regex: req.query.abstract } },
-//       { news_desk: { $regex: req.query.news_desk } },
-//     ],
-//   }).then((results) => {
-//     res.send(results);
-//   });
-// };
-
+//Search Article by the Abstract
 const article_search = (req, res) => {
-  //Search Article
   console.log(req.query.abstract);
-  Article.find({ abstract: { $regex: req.query.abstract } }).then((results) => {
-    res.send(results);
+
+  Article.find({ abstract: { $regex: req.query.abstract }})
+  .then((results) => {
+    res.render('searchpage', {results: results});
   });
 };
 
+//Delete Article
 const article_delete = (req, res) => {
-  //Delete Article
   console.log(req.query.abstract);
+
   Article.findOneAndDelete({ abstract: { $regex: req.query.abstract } }).then(
     (results) => {
       console.log(results);
