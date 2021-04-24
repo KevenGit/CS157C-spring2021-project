@@ -4,9 +4,8 @@ const Article = require("../models/article");
 const article_search = (req, res) => {
   console.log(req.query.abstract);
 
-  Article.find({ abstract: { $regex: req.query.abstract }})
-  .then((results) => {
-    res.render('searchpage', {results: results});
+  Article.find({ abstract: { $regex: req.query.abstract } }).then((results) => {
+    res.render("searchpage", { results: results });
   });
 };
 
@@ -52,8 +51,8 @@ const article_create = (req, res) => {
     subsection_name: doc.subsection_name,
 
     byline: {
-      original: doc.byline.original,
-      organization: doc.byline.organization,
+      original: doc.byline_original,
+      organization: doc.byline_organization,
     },
     type_of_material: doc.type_of_material,
     word_count: doc.word_count,
