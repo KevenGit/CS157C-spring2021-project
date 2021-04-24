@@ -5,7 +5,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://midterm:5VOTsiSCnFMLmcar@cluster0.3voc6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "mongodb+srv://midterm:5VOTsiSCnFMLmcar@cluster0.3voc6.mongodb.net/testDB?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -25,12 +25,12 @@ mongoose
     process.exit(1);
   });
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
+app.use(express.static("public"));
 
 app.use("/articles", require("./routes/articleRoutes"));
 
 app.get("/", (req, res) => {
-  res.render('index');
+  res.render("index");
 });
