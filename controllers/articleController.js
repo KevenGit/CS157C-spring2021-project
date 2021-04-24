@@ -1,4 +1,4 @@
-const Article = require('../models/article');
+const Article = require("../models/article");
 
 const article_search = (req, res) => { //Search Article
     console.log(req.query.abstract);
@@ -17,21 +17,55 @@ const article_search = (req, res) => { //Search Article
     });
 }
 
+const article_create = (req, res) => { //Insert New Articles
+    const doc = req.body;
 
-const articles_get = (req, res) => { //Get All Articles
-   Article.find()
-    .then(results => {
-    res.send(results)
-});
+    const obj = {
+        abstract: doc.abstract,
+        web_url: doc.web_url,
+        snippet: doc.snippet,
+        lead_paragraph: doc.lead_paragraph,
+        source: doc.source,
+
+        headline: {
+            main: doc.headline_main,
+            kicker: doc.headline_kicker,
+            print_headline: doc.headline_print_headline
+        },
+
+        keywords: [],
+
+        pub_date: Date.now().toString,
+        document_type: doc.document_type,
+        news_desk: doc.news_desk,
+        section_name: doc.section_name,
+        subsection_name: doc.subsection_name,
+
+        byline: {
+            original: doc.byline.original,
+            organization: doc.byline.organization
+        },
+        type_of_material: doc.type_of_material,
+        word_count: doc.word_count
+    }
+
+    const article = new Article(obj);
+    article.save()
+    .then(result => {
+        res.send(result);
+    })
+    .catch(err => {
+        console.error(err);
+    });   
 }
 
-
-   
+const article_bookmark = (req, res) => {
+    
+}
 
 module.exports = {
     article_create,
     article_delete,
-    articles_get,
-    article_search
-    // article_update
+    article_search,
+    article_bookmark,
 }
