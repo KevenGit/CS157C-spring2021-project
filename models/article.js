@@ -11,7 +11,6 @@ const ArticleSchema = mongoose.Schema({
         type: {
             main: {type: String, default: null},
             kicker: {type: String, default: null},
-            content_kicker: {type: String, default: null},
             print_headline: {type: String, default: null}
         },
         default: null
