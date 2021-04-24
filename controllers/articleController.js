@@ -1,5 +1,6 @@
 const Article = require("../models/article");
 
+// Get a specific article and show its details
 const article_details = (req, res) => {
   console.log(req.params.id);
   Article.findById(req.params.id)
@@ -22,17 +23,19 @@ const article_search = (req, res) => {
 
 //Delete Article
 const article_delete = (req, res) => {
-  console.log(req.query.abstract);
+  console.log(req.params.id);
 
-  Article.findOneAndDelete({ abstract: { $regex: req.query.abstract } }).then(
-    (results) => {
-      console.log(results);
-    }
-  );
+  Article.findByIdAndDelete(req.params.id)
+  .then(results => {
+      res.json({redirect: '/'});
+    }).catch(err => {
+      res.send(err);
+    });
 };
 
+//Insert One New Article
 const article_create = (req, res) => {
-  //Insert New Articles
+
   const doc = req.body;
 
   const obj = {
@@ -80,6 +83,7 @@ const article_create = (req, res) => {
     });
 };
 
+// Bookmark one article
 const article_bookmark = (req, res) => {};
 
 module.exports = {

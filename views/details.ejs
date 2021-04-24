@@ -22,9 +22,30 @@
     </div>
 
     <div class="details-buttons">
-        <button id="delete-button" type="button">DELETE</button>
-        <button id="bookmark-button" type="button">BOOKMARK</button>
+        <button id="delete-button" type="button" data-doc="<%= article._id %>">DELETE</button>
+        <button id="bookmark-button" type="button" data-doc="<%= article._id %>">BOOKMARK</button>
     </div>
 
+    <script>
+        // Action for pressing DELETE
+        const deleteButton = document.getElementById('delete-button');
+        deleteButton.addEventListener('click', (e) => {
+            console.log(deleteButton.dataset.doc);
+
+            fetch(`/articles/delete/${deleteButton.dataset.doc}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+            .then(data => {window.location.href = data.redirect;})
+            .catch(err => {console.error(err)});
+        });
+
+        // Action for pressing BOOKMARK
+        const bookmarkButton = document.getElementById('bookmark-button');
+        bookmarkButton.addEventListener('click', (e) => {
+            console.log(bookmarkButton.dataset.doc);
+        });
+
+    </script>
 </body>
 </html>
