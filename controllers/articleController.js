@@ -1,14 +1,22 @@
 const Article = require("../models/article");
 
+// const article_search = (req, res) => {
+//   //Search Article
+//   console.log(req.query.abstract, req.query.news_desk);
+//   Article.find({
+//     $and: [
+//       { abstract: { $regex: req.query.abstract } },
+//       { news_desk: { $regex: req.query.news_desk } },
+//     ],
+//   }).then((results) => {
+//     res.send(results);
+//   });
+// };
+
 const article_search = (req, res) => {
   //Search Article
-  console.log(req.query.abstract, req.query.news_desk);
-  Article.find({
-    $and: [
-      { abstract: { $regex: req.query.abstract } },
-      { news_desk: { $regex: req.query.news_desk } },
-    ],
-  }).then((results) => {
+  console.log(req.query.abstract);
+  Article.find({ abstract: { $regex: req.query.abstract } }).then((results) => {
     res.send(results);
   });
 };
@@ -40,7 +48,12 @@ const article_create = (req, res) => {
       print_headline: doc.headline_print_headline,
     },
 
-    keywords: [],
+    keywords: [
+      {
+        name: doc.keywords_name,
+        value: doc.keywords_value,
+      },
+    ],
 
     pub_date: Date.now().toString,
     document_type: doc.document_type,
