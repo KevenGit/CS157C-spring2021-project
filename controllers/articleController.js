@@ -13,7 +13,7 @@ const article_search = (req, res) => {
 const article_delete = (req, res) => {
   console.log(req.query.abstract);
 
-  Article.findOneAndDelete({ abstract: { $regex: req.query.abstract } }).then(
+  Article.deleteOne({ abstract: { $regex: req.query.abstract } }).then(
     (results) => {
       console.log(results);
     }
