@@ -19,6 +19,8 @@ mongoose.connect('mongodb+srv://midterm:5VOTsiSCnFMLmcar@cluster0.3voc6.mongodb.
     process.exit(1);
 });
 
+app.use(express.urlencoded({extended: true}));
+
 app.use('/articles', require('./routes/articleRoutes'));
 
 app.get('/', (req, res) => {

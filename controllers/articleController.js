@@ -1,5 +1,16 @@
 const Article = require('../models/article');
 
+const article_search = (req, res) => {
+    console.log(req.query);
+    console.log(req.query.city);
+    console.log(req.query.title);
+    Article.find({city: req.query.city})
+    .then(results => {
+        res.send(results);
+    });
+    res.send('Check the server console!');
+}
+
 const article_create = (req, res) => { //Insert New Articles
     console.log(req.body);
     // const headline = {
@@ -82,5 +93,6 @@ module.exports = {
     // article_delete,
     // article_get,
     articles_get,
+    article_search
     // article_update
 }

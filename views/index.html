@@ -7,8 +7,9 @@
     <title>Homepage</title>
 </head>
 <body>
-    <form action="/articles" method="POST">
-        <input type="text" name="query">
+    <form action="/articles/search" method="GET">
+        <input type="text" name="city">
+        <input type="text" name="title">
         <button type="submit">Submit</button>
     </form>
 </body>
