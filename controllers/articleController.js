@@ -1,7 +1,20 @@
 const Article = require("../models/article");
 
-const article_search = (req, res) => {
-    res.send('Check the server console!');
+const article_search = (req, res) => { //Search Article
+    console.log(req.query.abstract);
+    Article.find({abstract: { "$regex": req.query.abstract }})
+    .then(results => {
+        res.send(results)
+    });
+    
+}
+
+ const article_delete = (req, res) => { //Delete Article
+    console.log(req.query.abstract);
+    Article.findOneAndDelete({abstract: { "$regex": req.query.abstract }})
+    .then(results => {
+        console.log(results)
+    });
 }
 
 const article_create = (req, res) => { //Insert New Articles
@@ -44,16 +57,6 @@ const article_create = (req, res) => { //Insert New Articles
     .catch(err => {
         console.error(err);
     });   
-}
-
-const article_delete = (req, res) => { //Delete Article
-    try{
-        const article = await Article.findOneAndDelete({_id: req.params.id})
-        res.send(article)
-    }
-    catch(error){
-        res.status(500).send(error)
-    }   
 }
 
 const article_bookmark = (req, res) => {
