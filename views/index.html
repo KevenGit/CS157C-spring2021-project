@@ -1,16 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+      crossorigin="anonymous"
+    />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Homepage</title>
-</head>
-<body>
-    <form action="/articles/search" method="GET">
-        <input type="text" name="city">
-        <input type="text" name="title">
-        <button type="submit">Submit</button>
+  </head>
+  <body>
+    <h3>Query</h3>
+    <form action="/articles/search" method="GET" class="boarder">
+      <h3>Search by the news desk and lead paragraph</h3>
+      <input type="text" name="news desk" placeholder="news desk" />
+      <input type="text" name="lead paragraph" placeholder="lead paragraph" />
+      <button type="submit">Submit</button>
     </form>
-</body>
+    <form action="/articles/search" method="GET" class="boarder">
+      <h3>All articles from a time span</h3>
+      <input type="text" name="startDate" placeholder="Start Date" />
+      <input type="text" name="endDate" placeholder="End Date" />
+      <button type="submit">Submit</button>
+    </form>
+    <form action="/articles/search" method="GET" class="boarder">
+      <h3>Articles by section name/subsection name</h3>
+      <input type="text" name="sectionName" placeholder="Section Name" />
+      <input type="text" name="subsectionName" placeholder="Subsection Name" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <h3>CREATE</h3>
+    <form action="/articles/update" method="PUT" class="boarder">
+      <h3>Add an article from a different news sources(fill out the fields)</h3>
+      <input type="text" name="Abstract" placeholder="Abstract" />
+      <input type="text" name="Web_URL" placeholder="WEB URL" />
+      <input type="text" name="Lead_paragraph" placeholder="Lead paragraph" />
+      <input type="text" name="sources" placeholder="Sources" />
+      <h2>Headline:</h2>
+      <input type="text" name="Main" placeholder="Main" />
+      <input type="text" name="kicker" placeholder="kicker" />
+      <input type="text" name="print_headline" placeholder="Print Headline" />
+      <h2>Keyboard</h2>
+      <input type="text" name="keyword_Name" placeholder="Name" />
+      <input type="text" name="keyword_Value" placeholder="Abstract" />
+      <input type="text" name="keyword_Rank" placeholder="Rank" />
+      <input type="text" name="keyword_Major" placeholder="Major" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"
+      integrity="sha384-SR1sx49pcuLnqZUnnPwx6FCym0wLsk5JZuNx2bPPENzswTNFaQU1RDvt3wT4gWFG"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.min.js"
+      integrity="sha384-j0CNLUeiqtyaRmlzUHCPZ+Gy5fQu0dQ6eZ/xAww941Ai1SxSY+0EQqNXNE6DZiVc"
+      crossorigin="anonymous"
+    ></script>
+  </body>
 </html>

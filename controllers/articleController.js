@@ -1,4 +1,4 @@
-const Article = require('../models/article');
+const Article = require("../models/article");
 
 const article_search = (req, res) => {
     res.send('Check the server console!');
