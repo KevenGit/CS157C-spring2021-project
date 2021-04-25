@@ -44,6 +44,13 @@
         const bookmarkButton = document.getElementById('bookmark-button');
         bookmarkButton.addEventListener('click', (e) => {
             console.log(bookmarkButton.dataset.doc);
+
+            fetch(`/articles/bookmark/${bookmarkButton.dataset.doc}`, {
+                method: 'PUT'
+            })
+            .then(res => res.json())
+            .then(data => {window.location.href = data.redirect;})
+            .catch(err => {console.error(err)});
         });
 
     </script>

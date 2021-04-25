@@ -5,7 +5,7 @@ const app = express();
 
 mongoose
   .connect(
-    "mongodb+srv://midterm:5VOTsiSCnFMLmcar@cluster0.3voc6.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+    "mongodb+srv://midterm:5VOTsiSCnFMLmcar@cluster0.3voc6.mongodb.net/testDB?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

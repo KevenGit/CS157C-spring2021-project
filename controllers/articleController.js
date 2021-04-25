@@ -1,8 +1,20 @@
 const Article = require("../models/article");
 
+// Get everthing for testing
+const article_index = (req, res) => {
+  Article.find()
+  .then(results => {
+    res.send(results);
+  })
+  .catch(err => {
+    res.send(err);
+  })
+}
+
 // Get a specific article and show its details
 const article_details = (req, res) => {
   console.log(req.params.id);
+
   Article.findById(req.params.id)
   .then(result => {
     res.render('details', {article: result});
@@ -16,8 +28,12 @@ const article_details = (req, res) => {
 const article_search = (req, res) => {
   console.log(req.query.abstract);
 
-  Article.find({ abstract: { $regex: req.query.abstract } }).then((results) => {
+  Article.find({ abstract: { $regex: req.query.abstract } })
+  .then((results) => {
     res.render("searchpage", { results: results });
+  })
+  .catch(err => {
+    res.send(err);
   });
 };
 
@@ -84,9 +100,19 @@ const article_create = (req, res) => {
 };
 
 // Bookmark one article
-const article_bookmark = (req, res) => {};
+const article_bookmark = (req, res) => {
+  console.log(`Bookmarking ${req.params.id}`);
+
+  Article.findByIdAndUpdate(req.params.id, {$set: {bookmark: true}}, {strict: false})
+  .then(results => {
+      res.json({redirect: '/'});
+    }).catch(err => {
+      res.send(err);
+    });
+};
 
 module.exports = {
+  article_index,
   article_details,
   article_create,
   article_delete,
