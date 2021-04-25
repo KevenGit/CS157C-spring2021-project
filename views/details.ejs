@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB Project</title>
+</head>
+<body>
+
+    <div class="details">
+        <h2><%= article.headline.main %></h2>
+        <p><%= article.byline.original %></p>
+
+        <h3>ABSTRACT</h3>
+        <p><%= article.abstract %></p>
+
+        <h3>LEAD PARAGRAPH</h3>
+        <p><%= article.lead_paragraph %></p>
+
+        <p><%= article.web_url %></p>
+    </div>
+
+    <div class="details-buttons">
+        <button id="delete-button" type="button" data-doc="<%= article._id %>">DELETE</button>
+        <button id="bookmark-button" type="button" data-doc="<%= article._id %>">BOOKMARK</button>
+    </div>
+
+    <script>
+        // Action for pressing DELETE
+        const deleteButton = document.getElementById('delete-button');
+        deleteButton.addEventListener('click', (e) => {
+            console.log(deleteButton.dataset.doc);
+
+            fetch(`/articles/delete/${deleteButton.dataset.doc}`, {
+                method: 'DELETE'
+            })
+            .then(res => res.json())
+            .then(data => {window.location.href = data.redirect;})
+            .catch(err => {console.error(err)});
+        });
+
+        // Action for pressing BOOKMARK
+        const bookmarkButton = document.getElementById('bookmark-button');
+        bookmarkButton.addEventListener('click', (e) => {
+            console.log(bookmarkButton.dataset.doc);
+
+            fetch(`/articles/bookmark/${bookmarkButton.dataset.doc}`, {
+                method: 'PUT'
+            })
+            .then(res => res.json())
+            .then(data => {window.location.href = data.redirect;})
+            .catch(err => {console.error(err)});
+        });
+
+    </script>
+</body>
+</html>
