@@ -14,12 +14,26 @@
     <title>MongoDB</title>
   </head>
   <body>
-    <h3>TESTING</h3>
+    <h3>Search by Abstract</h3>
     <form action="/articles/search" method="GET" class="boarder">
-      <h3>Search by abstract</h3>
+      
       <input type="text" name="abstract" placeholder="Abstract" />
       <button type="submit">Submit</button>
     </form>
+    <body>
+      <h3>Search by Author</h3>
+      <form action="/articles/search/author" method="GET" class="boarder">
+       
+        <input type="text" name="byline" placeholder="Author" />
+        <button type="submit">Submit</button>
+      </form>
+      <h3>Search by Bookmark</h3>
+      <form action="/articles/search/bookmark" method="GET" class="boarder">
+        
+        <input type="text" name="bookmark" placeholder="Bookmark" />
+        <button type="submit">Submit</button>
+      </form>
+  
 
     <h3>CREATE</h3>
     <form action="/articles/create" method="POST" class="boarder">

@@ -37,6 +37,28 @@ const article_search = (req, res) => {
   });
 };
 
+//Search Article by the Author
+const article_search_author = (req, res) => {
+  console.log(req.query.abstract);
+  Article.find({'byline.original': { $regex: req.query.byline }})
+  .then((results) => {
+    res.render("searchpage", { results: results });
+  })
+  .catch(err => {
+    res.send(err);
+  });
+};
+
+const article_search_bookmark = (req, res) => {
+  Article.find({bookmark: Boolean("req.query.bookmark")})
+  .then((results) => {
+    res.render("searchpage", { results: results });
+  })
+  .catch(err => {
+    res.send(err);
+  });
+};
+
 //Delete Article
 const article_delete = (req, res) => {
   console.log(req.params.id);
@@ -117,5 +139,7 @@ module.exports = {
   article_create,
   article_delete,
   article_search,
+  article_search_author,
+  article_search_bookmark,
   article_bookmark,
 };
