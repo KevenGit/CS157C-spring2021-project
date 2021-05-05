@@ -59,6 +59,16 @@ const article_search_bookmark = (req, res) => {
   });
 };
 
+const article_search_wordcount = (req, res) => {
+  Article.aggregate([{$match : {"pub_date": {$regex : String(req.query.date)}}}, {$group: {'_id': null, total: {$sum: "$word_count"}}}])
+  .then((results) => {
+    console.log(results);
+  })
+  .catch(err => {
+    res.send(err);
+  });
+};
+
 //Delete Article
 const article_delete = (req, res) => {
   console.log(req.params.id);
@@ -142,4 +152,5 @@ module.exports = {
   article_search_author,
   article_search_bookmark,
   article_bookmark,
+  article_search_wordcount
 };
