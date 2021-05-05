@@ -69,6 +69,16 @@ const article_search_wordcount = (req, res) => {
   });
 };
 
+const article_search_numofarticles = (req, res) => {
+  results = Article.find({"pub_date": {$regex : String(req.query.date)}}).count()
+  .then((results) => {
+    console.log(results);
+  })
+  .catch(err => {
+    res.send(err);
+  });
+};
+
 //Delete Article
 const article_delete = (req, res) => {
   console.log(req.params.id);
@@ -152,5 +162,6 @@ module.exports = {
   article_search_author,
   article_search_bookmark,
   article_bookmark,
-  article_search_wordcount
+  article_search_wordcount,
+  article_search_numofarticles,
 };
