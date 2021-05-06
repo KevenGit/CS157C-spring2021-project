@@ -79,11 +79,29 @@ const article_search_numofarticles = (req, res) => {
   });
 };
 
+const article_search_rangewordcount = (req, res) => {
+  results = Article.find({word_count: {$gt : req.query.min, $lt : req.query.max}})
+  .then((results) => {
+    res.render("searchpage", { results: results });
+  })
+  .catch(err => {
+    res.send(err);
+  });
+};
+
 //Delete Article
 const article_delete = (req, res) => {
   console.log(req.params.id);
 
   Article.findByIdAndDelete(req.params.id)
+  .then(results => {
+      res.json({redirect: '/'});
+    }).catch(err => {
+      res.send(err);
+    });
+};
+const article_delete_date = (req, res) => {
+  Article.deleteMany({"pub_date": {$regex : String(req.query.date)}})
   .then(results => {
       res.json({redirect: '/'});
     }).catch(err => {
@@ -153,6 +171,18 @@ const article_bookmark = (req, res) => {
     });
 };
 
+const article_Comments = (req, res) => {
+  console.log(`Adding Comments to ${req.params.id}`);
+  console.log(req);
+ /* Article.findByIdAndUpdate(req.params.id, {$set: {comments: req.query.comments}}, {strict: false})
+  .then(results => {
+      res.json({redirect: '/'});
+    }).catch(err => {
+      res.send(err);
+    });
+    */
+};
+
 module.exports = {
   article_index,
   article_details,
@@ -164,4 +194,7 @@ module.exports = {
   article_bookmark,
   article_search_wordcount,
   article_search_numofarticles,
+  article_search_rangewordcount,
+  article_Comments,
+  article_delete_date
 };

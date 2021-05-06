@@ -45,7 +45,19 @@
         <input type="text" name="date" placeholder="2019-12" />
         <button type="submit">Submit</button>
       </form>
-  
+
+      <h3>Search by Range of Word Count for Articles</h3>
+      <form action="/articles/search/rangeofwordcount" method="GET" class="boarder">
+        <input type="Number" name="min" placeholder="0" />
+        <input type="Number" name="max" placeholder="1000" />
+        <button type="submit">Submit</button>
+      </form>
+      
+      <h3>Delete by Date</h3>
+      <form action="/articles/delete" method="GET" class="boarder">
+        <input type="text" name="date" placeholder="2019-12" />
+        <button type="submit">Submit</button>
+      </form>
   
 
     <h3>CREATE</h3>
