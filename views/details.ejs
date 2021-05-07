@@ -72,15 +72,20 @@
       CommentButton.addEventListener("click", (e) => {
         console.log(CommentButton.dataset.doc);
         var text = document.getElementById("comments");
-        var test = text.value;
+        var test = {
+          text: text.value,
+        };
         console.log(test);
         fetch(`/articles/comments/${CommentButton.dataset.doc}`, {
-          method: "POST",
-          body: test,
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(test),
         })
           .then((res) => res.json())
           .then((data) => {
-            window.location.href = data.redirect;
+            console.log(data);
           })
           .catch((err) => {
             console.error(err);

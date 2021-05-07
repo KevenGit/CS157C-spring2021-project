@@ -185,11 +185,11 @@ const article_bookmark = (req, res) => {
 
 const article_Comments = (req, res) => {
   console.log(`Adding Comments to ${req.params.id}`);
-  console.log(req);
+  console.log(req.body);
 
   Article.findByIdAndUpdate(
     req.params.id,
-    { $set: { comments: "req.query.comments" } },
+    { $set: { comments: req.body.text } },
     { strict: false }
   )
     .then((results) => {
@@ -198,6 +198,9 @@ const article_Comments = (req, res) => {
     .catch((err) => {
       res.send(err);
     });
+  res.json({
+    message: "Adding comments working!",
+  });
 };
 
 module.exports = {
