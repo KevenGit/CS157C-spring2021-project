@@ -3,90 +3,96 @@ const Article = require("../models/article");
 // Get everthing for testing
 const article_index = (req, res) => {
   Article.find()
-  .then(results => {
-    res.send(results);
-  })
-  .catch(err => {
-    res.send(err);
-  })
-}
+    .then((results) => {
+      res.send(results);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
 
 // Get a specific article and show its details
 const article_details = (req, res) => {
   console.log(req.params.id);
 
   Article.findById(req.params.id)
-  .then(result => {
-    res.render('details', {article: result});
-  })
-  .catch(err => {
-    res.send(err);
-  });
-}
+    .then((result) => {
+      res.render("details", { article: result });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
 
 //Search Article by the Abstract
 const article_search = (req, res) => {
   console.log(req.query.abstract);
 
   Article.find({ abstract: { $regex: req.query.abstract } })
-  .then((results) => {
-    res.render("searchpage", { results: results });
-  })
-  .catch(err => {
-    res.send(err);
-  });
+    .then((results) => {
+      res.render("searchpage", { results: results });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
 //Search Article by the Author
 const article_search_author = (req, res) => {
   console.log(req.query.abstract);
-  Article.find({'byline.original': { $regex: req.query.byline }})
-  .then((results) => {
-    res.render("searchpage", { results: results });
-  })
-  .catch(err => {
-    res.send(err);
-  });
+  Article.find({ "byline.original": { $regex: req.query.byline } })
+    .then((results) => {
+      res.render("searchpage", { results: results });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
 const article_search_bookmark = (req, res) => {
-  Article.find({bookmark: Boolean("req.query.bookmark")})
-  .then((results) => {
-    res.render("searchpage", { results: results });
-  })
-  .catch(err => {
-    res.send(err);
-  });
+  Article.find({ bookmark: Boolean("req.query.bookmark") })
+    .then((results) => {
+      res.render("searchpage", { results: results });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
 const article_search_wordcount = (req, res) => {
-  Article.aggregate([{$match : {"pub_date": {$regex : String(req.query.date)}}}, {$group: {'_id': null, total: {$sum: "$word_count"}}}])
-  .then((results) => {
-    console.log(results);
-  })
-  .catch(err => {
-    res.send(err);
-  });
+  Article.aggregate([
+    { $match: { pub_date: { $regex: String(req.query.date) } } },
+    { $group: { _id: null, total: { $sum: "$word_count" } } },
+  ])
+    .then((results) => {
+      console.log(results);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
 const article_search_numofarticles = (req, res) => {
-  results = Article.find({"pub_date": {$regex : String(req.query.date)}}).count()
-  .then((results) => {
-    console.log(results);
-  })
-  .catch(err => {
-    res.send(err);
-  });
+  results = Article.find({ pub_date: { $regex: String(req.query.date) } })
+    .count()
+    .then((results) => {
+      console.log(results);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
 const article_search_rangewordcount = (req, res) => {
-  results = Article.find({word_count: {$gt : req.query.min, $lt : req.query.max}})
-  .then((results) => {
-    res.render("searchpage", { results: results });
+  results = Article.find({
+    word_count: { $gt: req.query.min, $lt: req.query.max },
   })
-  .catch(err => {
-    res.send(err);
-  });
+    .then((results) => {
+      res.render("searchpage", { results: results });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 };
 
 //Delete Article
@@ -94,24 +100,25 @@ const article_delete = (req, res) => {
   console.log(req.params.id);
 
   Article.findByIdAndDelete(req.params.id)
-  .then(results => {
-      res.json({redirect: '/'});
-    }).catch(err => {
+    .then((results) => {
+      res.json({ redirect: "/" });
+    })
+    .catch((err) => {
       res.send(err);
     });
 };
 const article_delete_date = (req, res) => {
-  Article.deleteMany({"pub_date": {$regex : String(req.query.date)}})
-  .then(results => {
-      res.json({redirect: '/'});
-    }).catch(err => {
+  Article.deleteMany({ pub_date: { $regex: String(req.query.date) } })
+    .then((results) => {
+      res.json({ redirect: "/" });
+    })
+    .catch((err) => {
       res.send(err);
     });
 };
 
 //Insert One New Article
 const article_create = (req, res) => {
-
   const doc = req.body;
 
   const obj = {
@@ -163,10 +170,15 @@ const article_create = (req, res) => {
 const article_bookmark = (req, res) => {
   console.log(`Bookmarking ${req.params.id}`);
 
-  Article.findByIdAndUpdate(req.params.id, {$set: {bookmark: true}}, {strict: false})
-  .then(results => {
-      res.json({redirect: '/'});
-    }).catch(err => {
+  Article.findByIdAndUpdate(
+    req.params.id,
+    { $set: { bookmark: true } },
+    { strict: false }
+  )
+    .then((results) => {
+      res.json({ redirect: "/" });
+    })
+    .catch((err) => {
       res.send(err);
     });
 };
@@ -174,13 +186,18 @@ const article_bookmark = (req, res) => {
 const article_Comments = (req, res) => {
   console.log(`Adding Comments to ${req.params.id}`);
   console.log(req);
- /* Article.findByIdAndUpdate(req.params.id, {$set: {comments: req.query.comments}}, {strict: false})
-  .then(results => {
-      res.json({redirect: '/'});
-    }).catch(err => {
+
+  Article.findByIdAndUpdate(
+    req.params.id,
+    { $set: { comments: "req.query.comments" } },
+    { strict: false }
+  )
+    .then((results) => {
+      res.json({ redirect: "/" });
+    })
+    .catch((err) => {
       res.send(err);
     });
-    */
 };
 
 module.exports = {
@@ -196,5 +213,5 @@ module.exports = {
   article_search_numofarticles,
   article_search_rangewordcount,
   article_Comments,
-  article_delete_date
+  article_delete_date,
 };
