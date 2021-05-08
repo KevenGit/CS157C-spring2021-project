@@ -1,31 +1,50 @@
+require("dotenv").config();
 const fetch = require("node-fetch");
 const mongoose = require("mongoose");
 const Article = require("./models/article");
 
+// Starting and Ending Years for API Data (Inclusive)
+const years = {
+  start: 2019,
+  end: 2019,
+};
+
+// Starting and Ending Months for API Data (Inclusive)
+const months = {
+  start: 12,
+  end: 12,
+};
+
+// Number of Docs to Take From Each Fetch Request
+const numDocs = 10;
+
 mongoose
-  .connect(
-    "mongodb+srv://midterm:5VOTsiSCnFMLmcar@cluster0.3voc6.mongodb.net/testDB?retryWrites=true&w=majority",
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useFindAndModify: false,
-      useCreateIndex: true,
-    }
-  )
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+    useCreateIndex: true,
+  })
   .then((result) => {
-    execute();
+    // Get the Articles and Enter Into the DB
+    for (let y = years.start; y <= years.end; y++) {
+      for (let m = months.start; m <= months.end; m++) {
+        execute(y, m);
+      }
+    }
   })
   .catch((err) => {
     console.error(err);
   });
 
-function execute() {
-  const url =
-    "https://api.nytimes.com/svc/archive/v1/2019/12.json?api-key=ViUbIuUS3WR6cQUB4KlLQRkduU6CjHIL";
+// Wrangle the Data
+function execute(year, month) {
+  const url = `https://api.nytimes.com/svc/archive/v1/${year}/${month}.json?api-key=${process.env.API_KEY}`;
+
   fetch(url)
     .then((res) => res.json())
     .then((data) => {
-      for (var i = 0; i < 10; i++) {
+      for (var i = 0; i < numDocs; i++) {
         const doc = data.response.docs[i];
 
         const keywords = [];
@@ -68,9 +87,7 @@ function execute() {
         const article = new Article(obj);
         article
           .save()
-          .then((result) => {
-            console.log("Data saved!");
-          })
+          .then((result) => {})
           .catch((err) => {
             console.error(err);
           });

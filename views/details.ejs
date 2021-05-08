@@ -1,75 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MongoDB Project</title>
-</head>
-<body>
-
+  </head>
+  <body>
     <div class="details">
-        <h2><%= article.headline.main %></h2>
-        <p><%= article.byline.original %></p>
+      <h2><%= article.headline.main %></h2>
+      <p><%= article.byline.original %></p>
 
-        <h3>ABSTRACT</h3>
-        <p><%= article.abstract %></p>
+      <h3>ABSTRACT</h3>
+      <p><%= article.abstract %></p>
 
-        <h3>LEAD PARAGRAPH</h3>
-        <p><%= article.lead_paragraph %></p>
+      <h3>LEAD PARAGRAPH</h3>
+      <p><%= article.lead_paragraph %></p>
 
-        <p><%= article.web_url %></p>
+      <p><%= article.web_url %></p>
     </div>
 
     <div class="details-buttons">
-        <button id="delete-button" type="button" data-doc="<%= article._id %>">DELETE</button>
-        <input type="text" input id="comments" placeholder="COMMENT" />
-        <button id="Comment-button" type="button" data-doc="<%= article._id %>">COMMENT</button>
-        <button id="bookmark-button" type="button" data-doc="<%= article._id %>">BOOKMARK</button>
+      <button id="delete-button" type="button" data-doc="<%= article._id %>">
+        DELETE
+      </button>
+      <input type="text" input id="comments" placeholder="COMMENT" />
+      <button id="Comment-button" type="button" data-doc="<%= article._id %>">
+        COMMENT
+      </button>
+
+      <input type="text" input id="correctionsOne" placeholder="Abstract" />
+      <button
+        id="correction-button"
+        type="button"
+        data-doc="<%= article._id %>"
+      >
+        Correction
+      </button>
+
+      <button id="bookmark-button" type="button" data-doc="<%= article._id %>">
+        BOOKMARK
+      </button>
     </div>
 
     <script>
-        // Action for pressing DELETE
-        const deleteButton = document.getElementById('delete-button');
-        deleteButton.addEventListener('click', (e) => {
-            console.log(deleteButton.dataset.doc);
+      // Action for pressing DELETE
+      const deleteButton = document.getElementById("delete-button");
+      deleteButton.addEventListener("click", (e) => {
+        console.log(deleteButton.dataset.doc);
 
-            fetch(`/articles/delete/${deleteButton.dataset.doc}`, {
-                method: 'DELETE'
-            })
-            .then(res => res.json())
-            .then(data => {window.location.href = data.redirect;})
-            .catch(err => {console.error(err)});
-        });
+        fetch(`/articles/delete/${deleteButton.dataset.doc}`, {
+          method: "DELETE",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            window.location.href = data.redirect;
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      });
 
-        // Action for pressing BOOKMARK
-        const bookmarkButton = document.getElementById('bookmark-button');
-        bookmarkButton.addEventListener('click', (e) => {
-            console.log(bookmarkButton.dataset.doc);
+      // Action for pressing BOOKMARK
+      const bookmarkButton = document.getElementById("bookmark-button");
+      bookmarkButton.addEventListener("click", (e) => {
+        console.log(bookmarkButton.dataset.doc);
 
-            fetch(`/articles/bookmark/${bookmarkButton.dataset.doc}`, {
-                method: 'PUT'
-            })
-            .then(res => res.json())
-            .then(data => {window.location.href = data.redirect;})
-            .catch(err => {console.error(err)});
-        });
+        fetch(`/articles/bookmark/${bookmarkButton.dataset.doc}`, {
+          method: "PUT",
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            window.location.href = data.redirect;
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      });
 
-        const CommentButton = document.getElementById('Comment-button');
-        CommentButton.addEventListener('click', (e) => {
-            console.log(CommentButton.dataset.doc);
-            var text = document.getElementById("comments");
-            var test = text.value;
-            console.log(test);
-            fetch(`/articles/Comments/${CommentButton.dataset.doc}`, {
-                method: 'POST',
-                body: test,
-            })
-            .then(res => res.json())
-            .then(data => {window.location.href = data.redirect;})
-            .catch(err => {console.error(err)});
-        });
+      const CommentButton = document.getElementById("Comment-button");
+      CommentButton.addEventListener("click", (e) => {
+        console.log(CommentButton.dataset.doc);
+        var text = document.getElementById("comments");
+        var test = {
+          text: text.value,
+        };
+        console.log(test);
+        fetch(`/articles/comments/${CommentButton.dataset.doc}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(test),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      });
 
+      const CorrectionButton = document.getElementById("correction-button");
+      CorrectionButton.addEventListener("click", (e) => {
+        console.log(CorrectionButton.dataset.doc);
+        var correctionsOne = document.getElementById("correctionsOne");
+
+        var test = {
+          abstract: correctionsOne.value,
+        };
+        console.log(test);
+        fetch(`/articles/corrections/${CorrectionButton.dataset.doc}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(test),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      });
     </script>
-</body>
+  </body>
 </html>
