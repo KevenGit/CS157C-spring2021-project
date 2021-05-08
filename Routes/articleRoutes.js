@@ -19,6 +19,7 @@ router.get("/details/:id", articleController.article_details);
 router.post("/create", articleController.article_create);
 router.put("/bookmark/:id", articleController.article_bookmark);
 router.put("/comments/:id", articleController.article_Comments);
+router.put("/corrections/:id", articleController.article_Corrections);
 router.delete("/delete/:id", articleController.article_delete);
 router.get("/delete", articleController.article_delete_date);
 

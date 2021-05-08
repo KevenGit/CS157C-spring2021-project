@@ -28,6 +28,16 @@
       <button id="Comment-button" type="button" data-doc="<%= article._id %>">
         COMMENT
       </button>
+
+      <input type="text" input id="correctionsOne" placeholder="Abstract" />
+      <button
+        id="correction-button"
+        type="button"
+        data-doc="<%= article._id %>"
+      >
+        Correction
+      </button>
+
       <button id="bookmark-button" type="button" data-doc="<%= article._id %>">
         BOOKMARK
       </button>
@@ -77,6 +87,31 @@
         };
         console.log(test);
         fetch(`/articles/comments/${CommentButton.dataset.doc}`, {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(test),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      });
+
+      const CorrectionButton = document.getElementById("correction-button");
+      CorrectionButton.addEventListener("click", (e) => {
+        console.log(CorrectionButton.dataset.doc);
+        var correctionsOne = document.getElementById("correctionsOne");
+
+        var test = {
+          abstract: correctionsOne.value,
+        };
+        console.log(test);
+        fetch(`/articles/corrections/${CorrectionButton.dataset.doc}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

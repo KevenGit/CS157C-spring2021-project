@@ -203,6 +203,23 @@ const article_Comments = (req, res) => {
   });
 };
 
+const article_Corrections = (req, res) => {
+  console.log(`Adding Comments to ${req.params.id}`);
+  console.log(req.body);
+
+  Article.findByIdAndUpdate(
+    req.params.id,
+    { $set: { abstract: req.body.abstract } },
+    { strict: false }
+  )
+    .then((results) => {
+      res.redirect(`/articles/details/${req.params.id}`);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
 module.exports = {
   article_index,
   article_details,
@@ -216,5 +233,6 @@ module.exports = {
   article_search_numofarticles,
   article_search_rangewordcount,
   article_Comments,
+  article_Corrections,
   article_delete_date,
 };
