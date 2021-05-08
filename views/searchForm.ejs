@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <link href="./index.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYT Pseudo Search</title>
+</head>
+<body>
+
+    <!-- Title -->
+    <div id="TITLE" class="container mt-5">
+        <div class="row text-center">
+          <h1 class="display-6">NYT Editor-in-Pseudo Search</h1>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div id="accordion" class="col-8 accordion">
+
+                <!-- Search by Abstract -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading1">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="true" aria-controls="collapse1">
+                        Search by Abstract
+                      </button>
+                    </h2>
+                    <div id="collapse1" class="accordion-collapse collapse show" aria-labelledby="heading1" data-bs-parent="#accordion">
+                      <div class="accordion-body">
+
+                        <!-- The Actual Form -->
+                        <form action="/articles/search" method="GET">
+      
+                            <input type="text" name="abstract" placeholder="Abstract" class="form-control"/>
+                            <button type="submit" class="btn btn-outline-success mt-3">SUBMIT</button>
+                        </form>
+
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Search by Author -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading2">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse2" aria-expanded="false" aria-controls="collapse2">
+                        Search by Author
+                      </button>
+                    </h2>
+                    <div id="collapse2" class="accordion-collapse collapse show" aria-labelledby="heading2" data-bs-parent="#accordion">
+                      <div class="accordion-body">
+
+                        <!-- The Actual Form -->
+                        <form action="/articles/search/author" method="GET">
+       
+                            <input type="text" name="byline" placeholder="Author" class="form-control"/>
+                            <button type="submit" class="btn btn-outline-success mt-3">SUBMIT</button>
+                        </form>
+
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Search by Range of Word Count for Articles -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading3">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+                        Search by Range of Word Count for Articles
+                      </button>
+                    </h2>
+                    <div id="collapse3" class="accordion-collapse collapse show" aria-labelledby="heading3" data-bs-parent="#accordion">
+                      <div class="accordion-body">
+
+                        <!-- The Actual Form -->
+                        <form action="/articles/search/rangeofwordcount" method="GET">
+                            <input type="Number" name="min" placeholder="0" class="form-control"/>
+                            <input type="Number" name="max" placeholder="1000" class="form-control"/>
+                            <button type="submit" class="btn btn-outline-success mt-3">SUBMIT</button>
+                        </form>
+
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Search by Year-Month for Number of Articles -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading4">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                        Get Number of Articles by Year-Month
+                      </button>
+                    </h2>
+                    <div id="collapse4" class="accordion-collapse collapse show" aria-labelledby="heading4" data-bs-parent="#accordion">
+                      <div class="accordion-body">
+
+                        <!-- The Actual Form -->
+                        <form action="/articles/search/numofarticles" method="GET">
+                            <input type="text" name="date" placeholder="2019-12" class="form-control"/>
+                            <button type="submit" class="btn btn-outline-success mt-3">SUBMIT</button>
+                        </form>
+
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Search by Year-Month for Word Count -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading5">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                        Get Word Count by Year-Month
+                      </button>
+                    </h2>
+                    <div id="collapse5" class="accordion-collapse collapse show" aria-labelledby="heading5" data-bs-parent="#accordion">
+                      <div class="accordion-body">
+
+                        <!-- The Actual Form -->
+                        <form action="/articles/search/wordcount" method="GET">
+                            <input type="text" name="date" placeholder="2019-12" class="form-control"/>
+                            <button type="submit" class="btn btn-outline-success mt-3">SUBMIT</button>
+                        </form>
+
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Search by Bookmark -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading6">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                        Get Bookmarked Articles
+                      </button>
+                    </h2>
+                    <div id="collapse6" class="accordion-collapse collapse show" aria-labelledby="heading6" data-bs-parent="#accordion">
+                      <div class="accordion-body">
+
+                        <!-- The Actual Form -->
+                        <form action="/articles/search/bookmark" method="GET">
+                            <input type="text" name="bookmark" placeholder="Bookmark" class="form-control"/>
+                            <button type="submit" class="btn btn-outline-success mt-3">SUBMIT</button>
+                        </form>
+
+                      </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+</body>
+
+  <script>
+
+    const TITLE = document.getElementById('TITLE');
+    TITLE.addEventListener('click', (e) => {
+      location.href = '/';
+    });
+
+  </script>
+
+</html>
