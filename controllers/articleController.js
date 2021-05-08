@@ -37,6 +37,17 @@ const article_search = (req, res) => {
     });
 };
 
+const article_search_source= (req, res) => {
+  console.log(req.query.source);
+  Article.find({"source": { $regex: req.query.source }  })
+    .then((results) => {
+      res.render("searchpage", { results: results });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
+
 //Search Article by the Author
 const article_search_author = (req, res) => {
   console.log(req.query.abstract);
@@ -221,6 +232,7 @@ const article_Corrections = (req, res) => {
 };
 
 module.exports = {
+  article_search_source,
   article_index,
   article_details,
   article_create,

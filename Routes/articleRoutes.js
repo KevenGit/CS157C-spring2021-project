@@ -22,5 +22,6 @@ router.put("/comments/:id", articleController.article_Comments);
 router.put("/corrections/:id", articleController.article_Corrections);
 router.delete("/delete/:id", articleController.article_delete);
 router.get("/delete", articleController.article_delete_date);
+router.get("/search/source", articleController.article_search_source);
 
 module.exports = router;

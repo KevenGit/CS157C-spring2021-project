@@ -5,7 +5,7 @@ const Article = require("./models/article");
 
 // Starting and Ending Years for API Data (Inclusive)
 const years = {
-  start: 2010,
+  start: 2000,
   end: 2010,
 };
 
