@@ -261,6 +261,7 @@ const article_Corrections = (req, res) => {
 };
 
 module.exports = {
+  article_search_source,
   article_index,
   article_create,
 
