@@ -22,11 +22,11 @@
         <div class="row justify-content-center">
 
             <div class="bg-light bg-gradient col-8">
-                <form action="/articles/delete" method="POST" class="row justify-content-center">
+                <form id="deleteForm" action="/articles/delete" class="row justify-content-center">
 
                     <div class="bg-dark bg-gradient shadow">
                         <h4 class="text-white p-2">
-                            Delete All Articles Before:
+                            Delete All Articles At:
                         </h4>
                     </div>
 
@@ -51,6 +51,32 @@
         const TITLE = document.getElementById('TITLE');
         TITLE.addEventListener('click', (e) => {
             location.href = '/';
+        });
+
+        const FORM = document.getElementById('deleteForm');
+        FORM.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const date = {
+                date: e.target[0].value
+            };
+
+            console.log(date);
+
+            fetch('/article/delete/date', {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(date),
+            })
+            .then(res => res.json())
+            .then(data => {
+                location.href = data.redirect;
+            })
+            .catch(err => {
+                console.error(err);
+            });
         });
         
     </script>

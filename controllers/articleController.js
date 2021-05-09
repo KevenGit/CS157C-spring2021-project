@@ -107,7 +107,7 @@ const article_search_source = (req, res) => {
 
 // QUERY 7: Articles by Section/Subsection Name
 const article_search_section = (req, res) => {
-  console.log(`Search by Section and Subsection: ${req.query.section}, ${req,query.subsection}`);
+  console.log(`Search by Section and Subsection: ${req.query.section}, ${req.query.subsection}`);
   Article.find({section_name: req.query.section, subsection_name: req.query.subsection})
   .then(results => {
     res.render('searchpage', {results: results});
@@ -147,9 +147,9 @@ const article_delete = (req, res) => {
 
 // DELETE 2: Delete Articles From a Certain Month
 const article_delete_date = (req, res) => {
-  console.log(`Deleting Articles from ${req.query.date}`);
+  console.log(`Deleting Articles from ${req.body.date}`);
 
-  Article.deleteMany({ pub_date: { $regex: String(req.query.date) } })
+  Article.deleteMany({ pub_date: { $regex: String(req.body.date) } })
     .then((results) => {
       res.json({ redirect: "/" });
     })
@@ -201,8 +201,7 @@ const article_create = (req, res) => {
   article
     .save()
     .then((result) => {
-      console.log(result);
-      res.send(result);
+      res.redirect(`/articles/details/${result._id}`);
     })
     .catch((err) => {
       console.error(err);
