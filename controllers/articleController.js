@@ -13,7 +13,7 @@ const article_index = (req, res) => {
 
 // QUERY 1. Read the Details of an Article
 const article_details = (req, res) => {
-  console.log(`_id: ${req.params.id}`);
+  console.log(`Getting Details of: ${req.params.id}`);
 
   Article.findById(req.params.id)
     .then((result) => {
@@ -26,11 +26,11 @@ const article_details = (req, res) => {
 
 // QUERY 3. Search by Abstract
 const article_search = (req, res) => {
-  console.log(`Abstract: ${req.query.abstract}`);
+  console.log(`Searching by Abstract: ${req.query.abstract}`);
 
   Article.find({ abstract: { $regex: req.query.abstract } })
     .then((results) => {
-      res.render("searchpage", { results: results, limit: 10});
+      res.render("searchpage", { results: results});
     })
     .catch((err) => {
       res.send(err);
@@ -39,11 +39,11 @@ const article_search = (req, res) => {
 
 // QUERY 8: All Articles with a Certain Byline (Author)
 const article_search_author = (req, res) => {
-  console.log(`Author: ${req.query.byline}`);
+  console.log(`Searching by Author: ${req.query.byline}`);
 
   Article.find({ "byline.original": { $regex: req.query.byline } })
     .then((results) => {
-      res.render("searchpage", { results: results, limit: 10});
+      res.render("searchpage", { results: results});
     })
     .catch((err) => {
       res.send(err);
@@ -52,9 +52,11 @@ const article_search_author = (req, res) => {
 
 // QUERY 9: All articles that are bookmarked
 const article_search_bookmark = (req, res) => {
-  Article.find({ bookmark: Boolean("req.query.bookmark") })
+  console.log('Getting bookmarked articles');
+
+  Article.find({ bookmark: true })
     .then((results) => {
-      res.render("searchpage", { results: results, limit: 10});
+      res.render("searchpage", { results: results});
     })
     .catch((err) => {
       res.send(err);
@@ -63,12 +65,14 @@ const article_search_bookmark = (req, res) => {
 
 // QUERY 2: Total Word Count of a month/year
 const article_search_wordcount = (req, res) => {
+  console.log(`Getting word count in ${req.query.date}`);
+
   Article.aggregate([
     { $match: { pub_date: { $regex: String(req.query.date) } } },
     { $group: { _id: null, total: { $sum: "$word_count" } } },
   ])
     .then((results) => {
-      console.log(results);
+      res.render('display', {count: results[0].total, date: req.query.date, element: 'Words'});
     })
     .catch((err) => {
       res.send(err);
@@ -77,30 +81,51 @@ const article_search_wordcount = (req, res) => {
 
 // QUERY 4: Total number of articles in a month/year
 const article_search_numofarticles = (req, res) => {
+  console.log(`Getting number of articles in ${req.query.date}`);
+
   results = Article.find({ pub_date: { $regex: String(req.query.date) } })
     .count()
     .then((results) => {
-      console.log(results);
+      res.render('display', {count: results, date: req.query.date, element: "Articles"});
     })
     .catch((err) => {
       res.send(err);
     });
 };
 
-// QUERY 5: List All Keywords
+// QUERY 5: Search Articles by Source
+const article_search_source = (req, res) => {
+  console.log(`Search by Source: ${req.query.source}`);
+  Article.find({source: req.query.source})
+  .then(results => {
+    res.render('searchpage', {results: results});
+  })
+  .catch(err => {
+    res.send(err);
+  });
+}
 
 // QUERY 7: Articles by Section/Subsection Name
-// const article_search_section = (req, res) => {
-//   console.log(``)
-// }
+const article_search_section = (req, res) => {
+  console.log(`Search by Section and Subsection: ${req.query.section}, ${req,query.subsection}`);
+  Article.find({section_name: req.query.section, subsection_name: req.query.subsection})
+  .then(results => {
+    res.render('searchpage', {results: results});
+  })
+  .catch(err => {
+    res.send(err);
+  });
+}
 
 // QUERY 6: Search All Articles from a Certain Word Count
 const article_search_rangewordcount = (req, res) => {
+  console.log(`Getting all article with word count ${req.query.min} - ${req.query.max}`);
+
   results = Article.find({
     word_count: { $gt: req.query.min, $lt: req.query.max },
   })
     .then((results) => {
-      res.render("searchpage", { results: results, limit: 10});
+      res.render("searchpage", { results: results});
     })
     .catch((err) => {
       res.send(err);
@@ -109,7 +134,7 @@ const article_search_rangewordcount = (req, res) => {
 
 // DELETE 1: Delete an Article
 const article_delete = (req, res) => {
-  console.log(req.params.id);
+  console.log(`Deleting Article ${req.params.id}`);
 
   Article.findByIdAndDelete(req.params.id)
     .then((results) => {
@@ -120,8 +145,10 @@ const article_delete = (req, res) => {
     });
 };
 
-// DELETE 2: Delete Articles Before a Certain Date
+// DELETE 2: Delete Articles From a Certain Month
 const article_delete_date = (req, res) => {
+  console.log(`Deleting Articles from ${req.query.date}`);
+
   Article.deleteMany({ pub_date: { $regex: String(req.query.date) } })
     .then((results) => {
       res.json({ redirect: "/" });
@@ -169,10 +196,12 @@ const article_create = (req, res) => {
     word_count: doc.word_count,
   };
 
+  console.log(`Creating new Article`);
   const article = new Article(obj);
   article
     .save()
     .then((result) => {
+      console.log(result);
       res.send(result);
     })
     .catch((err) => {
@@ -182,7 +211,7 @@ const article_create = (req, res) => {
 
 // UPDATE 1: Bookmark Article
 const article_bookmark = (req, res) => {
-  console.log(`Bookmarking ${req.params.id}`);
+  console.log(`Bookmarking Article ${req.params.id}`);
 
   Article.findByIdAndUpdate(
     req.params.id,
@@ -199,8 +228,7 @@ const article_bookmark = (req, res) => {
 
 // UPDATE 2: Add Comments for Editing
 const article_Comments = (req, res) => {
-  console.log(`Adding Comments to ${req.params.id}`);
-  console.log(req.body);
+  console.log(`Adding Comments to Article ${req.params.id}`);
 
   Article.findByIdAndUpdate(
     req.params.id,
@@ -213,15 +241,11 @@ const article_Comments = (req, res) => {
     .catch((err) => {
       res.send(err);
     });
-  res.json({
-    message: "Adding comments working!",
-  });
 };
 
 // UPDATE 3: Correct an Article 
 const article_Corrections = (req, res) => {
-  console.log(`Adding Comments to ${req.params.id}`);
-  console.log(req.body);
+  console.log(`Adding Corrections to Article ${req.params.id}`);
 
   Article.findByIdAndUpdate(
     req.params.id,
@@ -229,7 +253,7 @@ const article_Corrections = (req, res) => {
     { strict: false }
   )
     .then((results) => {
-      res.redirect(`/articles/details/${req.params.id}`);
+      res.json({ redirect: "/" });
     })
     .catch((err) => {
       res.send(err);
@@ -244,9 +268,9 @@ module.exports = {
   article_search_wordcount,
   article_search,
   article_search_numofarticles,
-
+  article_search_section,
   article_search_rangewordcount,
-  
+  article_search_source,
   article_search_author,
   article_search_bookmark,
 

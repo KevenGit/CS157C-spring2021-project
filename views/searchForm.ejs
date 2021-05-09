@@ -64,6 +64,49 @@
                     </div>
                 </div>
 
+                <!-- Search by Section/Subsection -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading7">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                        Search by Section/SubSection
+                      </button>
+                    </h2>
+                    <div id="collapse7" class="accordion-collapse collapse show" aria-labelledby="heading7" data-bs-parent="#accordion">
+                      <div class="accordion-body">
+
+                        <!-- The Actual Form -->
+                        <form action="/articles/search/section" method="GET">
+       
+                            <input type="text" name="section" placeholder="Section" class="form-control"/>
+                            <input type="text" name="subsection" placeholder="SubSection" class="form-control"/>
+                            <button type="submit" class="btn btn-outline-success mt-3">SUBMIT</button>
+                        </form>
+
+                      </div>
+                    </div>
+                </div>
+
+                <!-- Search by Source -->
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading8">
+                      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                        Search by Source
+                      </button>
+                    </h2>
+                    <div id="collapse8" class="accordion-collapse collapse show" aria-labelledby="heading8" data-bs-parent="#accordion">
+                      <div class="accordion-body">
+
+                        <!-- The Actual Form -->
+                        <form action="/articles/search/source" method="GET">
+       
+                            <input type="text" name="source" placeholder="Source" class="form-control"/>
+                            <button type="submit" class="btn btn-outline-success mt-3">SUBMIT</button>
+                        </form>
+
+                      </div>
+                    </div>
+                </div>
+
                 <!-- Search by Range of Word Count for Articles -->
                 <div class="accordion-item">
                     <h2 class="accordion-header" id="heading3">

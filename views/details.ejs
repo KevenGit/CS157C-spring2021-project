@@ -96,7 +96,13 @@
 
           <div class="row align-items-center">
             <h6 class="fw-bold">Keywords</h3>
-            <p><%= article.keywords %></p>
+
+              <% let keywordsList = ""; %>
+              <% article.keywords.forEach(elem => { %>
+              <% keywords += elem.value + ", "; %>
+              <% }); %>
+
+            <p><%= keywordsList %></p>
           </div>
 
           <div class="row align-items-center">
@@ -119,7 +125,7 @@
           <!-- Commenting Section -->
           <div class="row p-2 bg-dark bg-gradient justify-content-center">
             <div class="col-10">
-              <textarea id="comments" style="height: 75px; width: 100%;" placeholder="COMMENT"></textarea>
+              <textarea id="comments" style="height: 75px; width: 100%;" placeholder="Comment"></textarea>
             </div>
 
             <div class="col-2 text-center">
@@ -137,7 +143,7 @@
           <!-- Correcting Section -->
           <div class="row p-2 bg-dark bg-gradient justify-content-center">
             <div class="col-10">
-              <textarea id="correctionsOne" style="height: 75px; width: 100%;" value="<%= article.abstract %>"></textarea>
+              <textarea id="correctionsOne" style="height: 75px; width: 100%;" placeholder="Edit the Abstract"></textarea>
             </div>
 
             <div class="col-2 text-center">
