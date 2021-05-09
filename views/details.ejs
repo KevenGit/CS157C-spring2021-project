@@ -99,7 +99,7 @@
 
               <% let keywordsList = ""; %>
               <% article.keywords.forEach(elem => { %>
-              <% keywords += elem.value + ", "; %>
+              <% keywordsList += elem.value + ", "; %>
               <% }); %>
 
             <p><%= keywordsList %></p>

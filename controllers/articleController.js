@@ -30,7 +30,7 @@ const article_search = (req, res) => {
 
   Article.find({ abstract: { $regex: req.query.abstract } })
     .then((results) => {
-      res.render("searchpage", { results: results});
+      res.render("searchpage", { results: results });
     })
     .catch((err) => {
       res.send(err);
@@ -42,8 +42,9 @@ const article_search_author = (req, res) => {
   console.log(`Searching by Author: ${req.query.byline}`);
 
   Article.find({ "byline.original": { $regex: req.query.byline } })
+    .limit(10)
     .then((results) => {
-      res.render("searchpage", { results: results});
+      res.render("searchpage", { results: results });
     })
     .catch((err) => {
       res.send(err);
@@ -52,11 +53,11 @@ const article_search_author = (req, res) => {
 
 // QUERY 9: All articles that are bookmarked
 const article_search_bookmark = (req, res) => {
-  console.log('Getting bookmarked articles');
+  console.log("Getting bookmarked articles");
 
   Article.find({ bookmark: true })
     .then((results) => {
-      res.render("searchpage", { results: results});
+      res.render("searchpage", { results: results });
     })
     .catch((err) => {
       res.send(err);
@@ -72,7 +73,11 @@ const article_search_wordcount = (req, res) => {
     { $group: { _id: null, total: { $sum: "$word_count" } } },
   ])
     .then((results) => {
-      res.render('display', {count: results[0].total, date: req.query.date, element: 'Words'});
+      res.render("display", {
+        count: results[0].total,
+        date: req.query.date,
+        element: "Words",
+      });
     })
     .catch((err) => {
       res.send(err);
@@ -86,7 +91,11 @@ const article_search_numofarticles = (req, res) => {
   results = Article.find({ pub_date: { $regex: String(req.query.date) } })
     .count()
     .then((results) => {
-      res.render('display', {count: results, date: req.query.date, element: "Articles"});
+      res.render("display", {
+        count: results,
+        date: req.query.date,
+        element: "Articles",
+      });
     })
     .catch((err) => {
       res.send(err);
@@ -96,36 +105,46 @@ const article_search_numofarticles = (req, res) => {
 // QUERY 5: Search Articles by Source
 const article_search_source = (req, res) => {
   console.log(`Search by Source: ${req.query.source}`);
-  Article.find({source: req.query.source})
-  .then(results => {
-    res.render('searchpage', {results: results});
-  })
-  .catch(err => {
-    res.send(err);
-  });
-}
+  Article.find({ source: req.query.source })
+    .limit(10)
+    .then((results) => {
+      res.render("searchpage", { results: results });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
 
 // QUERY 7: Articles by Section/Subsection Name
 const article_search_section = (req, res) => {
-  console.log(`Search by Section and Subsection: ${req.query.section}, ${req,query.subsection}`);
-  Article.find({section_name: req.query.section, subsection_name: req.query.subsection})
-  .then(results => {
-    res.render('searchpage', {results: results});
+  console.log(
+    `Search by Section and Subsection: ${req.query.section}, ${req.query.subsection}`
+  );
+  Article.find({
+    section_name: req.query.section,
+    subsection_name: req.query.subsection,
   })
-  .catch(err => {
-    res.send(err);
-  });
-}
+    .limit(10)
+    .then((results) => {
+      res.render("searchpage", { results: results });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+};
 
 // QUERY 6: Search All Articles from a Certain Word Count
 const article_search_rangewordcount = (req, res) => {
-  console.log(`Getting all article with word count ${req.query.min} - ${req.query.max}`);
+  console.log(
+    `Getting all article with word count ${req.query.min} - ${req.query.max}`
+  );
 
   results = Article.find({
     word_count: { $gt: req.query.min, $lt: req.query.max },
   })
+    .limit(10)
     .then((results) => {
-      res.render("searchpage", { results: results});
+      res.render("searchpage", { results: results });
     })
     .catch((err) => {
       res.send(err);
@@ -243,7 +262,7 @@ const article_Comments = (req, res) => {
     });
 };
 
-// UPDATE 3: Correct an Article 
+// UPDATE 3: Correct an Article
 const article_Corrections = (req, res) => {
   console.log(`Adding Corrections to Article ${req.params.id}`);
 
