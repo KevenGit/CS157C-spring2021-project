@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYT Pseudo Create</title>
+</head>
+<body>
+
+    <!-- Title -->
+    <div id="TITLE" class="container mt-5">
+        <div class="row text-center">
+          <h1 class="display-6">NYT Editor-in-Pseudo Delete</h1>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+
+            <div class="bg-light bg-gradient col-8">
+                <form action="/articles/delete" method="POST" class="row justify-content-center">
+
+                    <div class="bg-dark bg-gradient shadow">
+                        <h4 class="text-white p-2">
+                            Delete All Articles Before:
+                        </h4>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" name="source" placeholder="YYYY-MM" class="form-control mt-4"/>
+                    </div>
+
+                    <div class="col-4">
+                        <button type="submit" class="btn btn-danger mt-4 mb-5">DELETE</button>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+    
+</body>
+
+    <script>
+
+        const TITLE = document.getElementById('TITLE');
+        TITLE.addEventListener('click', (e) => {
+            location.href = '/';
+        });
+        
+    </script>
+
+</html>

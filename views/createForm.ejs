@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NYT Pseudo Create</title>
+</head>
+<body>
+
+    <!-- Title -->
+    <div id="TITLE" class="container mt-3">
+        <div class="row text-center">
+          <h1 class="display-6">NYT Editor-in-Pseudo Search</h1>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+
+            <div class="bg-light bg-gradient col-8">
+                <form action="/articles/create" method="POST" class="row justify-content-center">
+
+                    <!-- Article Info -->
+                    <div class="bg-info bg-gradient shadow">
+                        <h4 class="text-white p-2">
+                            Article Info
+                        </h4>
+                    </div>
+
+                    <div>
+                        <textarea name="abstract" placeholder="Abstract" class="form-control mt-3" style="height: 75px;"></textarea>
+                        <input type="text" name="web_url" placeholder="WEB URL" class="form-control mt-3"/>
+                        <input type="text" name="snippet" placeholder="Snippet" class="form-control mt-3"/>
+                        <textarea name="lead_paragraph" placeholder="Lead paragraph" class="form-control mt-3" style="height: 100px;"></textarea>
+                    </div>
+
+                    <div class="col-4">
+                        <input type="text" name="source" placeholder="Source" class="form-control mt-3"/>
+                    </div>
+
+                    <div class="col-4">
+                        <input type="text" name="type_of_material" placeholder="Type of Material" class="form-control mt-3"/>
+                    </div>
+
+                    <div class="col-4">
+                        <input type="number" name="word_count" placeholder="Word Count" class="form-control mt-3"/>
+                    </div>
+
+                    <!-- Headline Info -->
+                    <div class="bg-info bg-gradient shadow mt-3">
+                        <h4 class="text-white p-2">
+                            Headline
+                        </h4>
+                    </div>
+
+                    <div>
+                        <input type="text" name="headline_main" placeholder="Main" class="form-control mt-3"/>
+                        <input type="text" name="headline_kicker" placeholder="Kicker" class="form-control mt-3"/>
+                        <input type="text" name="headline_print_headline" placeholder="Print Headline" class="form-control mt-3"/>
+                    </div>
+
+                    <!-- Byline Info -->
+                    <div class="bg-info bg-gradient shadow mt-3">
+                        <h4 class="text-white p-2">
+                            Byline
+                        </h4>
+                    </div>
+
+                    <div class="col-6">
+                        <input type="text" name="byline_original" placeholder="Original" class="form-control mt-3"/>
+                    </div>
+
+                    <div class="col-6">
+                        <input type="text" name="byline_organization" placeholder="Organization" class="form-control mt-3"/>
+                    </div>
+
+                    <!-- Keyword Info -->
+                    <div class="bg-info bg-gradient shadow mt-3">
+                        <h4 class="text-white p-2">
+                            Keyword
+                        </h4>
+                    </div>
+
+                    <div class="col-6">
+                        <input type="text" name="keywords_name" placeholder="Name" class="form-control mt-3"/>
+                    </div>
+                    
+                    <div class="col-6">
+                        <input type="text" name="keywords_value" placeholder="Value" class="form-control mt-3"/>
+                    </div>
+
+                    <!-- Doc Info -->
+                    <div class="bg-info bg-gradient shadow mt-3">
+                        <h4 class="text-white p-2">
+                            Document Info
+                        </h4>
+                    </div>
+
+                    <div class="col-3">
+                        <input type="text" name="news_desk" placeholder="News Desk" class="form-control mt-3"/>
+                    </div>
+
+                    <div class="col-3">
+                        <input type="text" name="section_name" placeholder="Section Name" class="form-control mt-3"/>
+                    </div>
+
+                    <div class="col-3">
+                        <input type="text" name="subsection_name" placeholder="Subsection Name" class="form-control mt-3"/>
+                    </div>
+
+                    <div class="col-3">
+                        <input type="text" name="document_type" placeholder="Doc Type" class="form-control mt-3"/>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" class="btn btn-success mt-3 mb-5">CREATE</button>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+    
+</body>
+
+    <script>
+
+        const TITLE = document.getElementById('TITLE');
+        TITLE.addEventListener('click', (e) => {
+            location.href = '/';
+        });
+
+    </script>
+
+</html>
