@@ -5,14 +5,14 @@ const Article = require("./models/article");
 
 // Starting and Ending Years for API Data (Inclusive)
 const years = {
-  start: 2016,
-  end: 2016,
+  start: 2019,
+  end: 2019,
 };
 
 // Starting and Ending Months for API Data (Inclusive)
 const months = {
-  start: 7,
-  end: 7,
+  start: 1,
+  end: 3,
 };
 
 // Number of Docs to Take From Each Fetch Request
