@@ -30,7 +30,7 @@ const article_search = (req, res) => {
 
   Article.find({ abstract: { $regex: req.query.abstract } })
     .then((results) => {
-      res.render("searchpage", { results: results });
+      res.render("searchpage", { results: results, limit: 10});
     })
     .catch((err) => {
       res.send(err);
@@ -43,7 +43,7 @@ const article_search_author = (req, res) => {
 
   Article.find({ "byline.original": { $regex: req.query.byline } })
     .then((results) => {
-      res.render("searchpage", { results: results });
+      res.render("searchpage", { results: results, limit: 10});
     })
     .catch((err) => {
       res.send(err);
@@ -54,7 +54,7 @@ const article_search_author = (req, res) => {
 const article_search_bookmark = (req, res) => {
   Article.find({ bookmark: Boolean("req.query.bookmark") })
     .then((results) => {
-      res.render("searchpage", { results: results });
+      res.render("searchpage", { results: results, limit: 10});
     })
     .catch((err) => {
       res.send(err);
@@ -87,13 +87,20 @@ const article_search_numofarticles = (req, res) => {
     });
 };
 
+// QUERY 5: List All Keywords
 
+// QUERY 7: Articles by Section/Subsection Name
+// const article_search_section = (req, res) => {
+//   console.log(``)
+// }
+
+// QUERY 6: Search All Articles from a Certain Word Count
 const article_search_rangewordcount = (req, res) => {
   results = Article.find({
     word_count: { $gt: req.query.min, $lt: req.query.max },
   })
     .then((results) => {
-      res.render("searchpage", { results: results });
+      res.render("searchpage", { results: results, limit: 10});
     })
     .catch((err) => {
       res.send(err);

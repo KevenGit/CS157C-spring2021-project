@@ -1,46 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MongoDB Project</title>
+
+    <title>NYT Editor-in-Pseudo</title>
   </head>
   <body>
-    <div class="details">
-      <h2><%= article.headline.main %></h2>
-      <p><%= article.byline.original %></p>
 
-      <h3>ABSTRACT</h3>
-      <p><%= article.abstract %></p>
-
-      <h3>LEAD PARAGRAPH</h3>
-      <p><%= article.lead_paragraph %></p>
-
-      <p><%= article.web_url %></p>
+    <!-- Title -->
+    <div id="TITLE" class="container">
+      <div class="row text-center">
+        <h1 class="display-6"><%= article.headline.main %></h1>
+        <p><%= article.headline.kicker %></p>
+      </div>
     </div>
 
-    <div class="details-buttons">
-      <button id="delete-button" type="button" data-doc="<%= article._id %>">
-        DELETE
-      </button>
-      <input type="text" input id="comments" placeholder="COMMENT" />
-      <button id="Comment-button" type="button" data-doc="<%= article._id %>">
-        COMMENT
-      </button>
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-8 bg-light bg-gradient pb-5">
 
-      <input type="text" input id="correctionsOne" placeholder="Abstract" />
-      <button
-        id="correction-button"
-        type="button"
-        data-doc="<%= article._id %>"
-      >
-        Correction
-      </button>
+          <div class="row p-2 bg-dark bg-gradient justify-content-center">
 
-      <button id="bookmark-button" type="button" data-doc="<%= article._id %>">
-        BOOKMARK
-      </button>
+            <div class="col-6 text-center">
+              <button id="bookmark-button" class="btn btn-outline-info" type="button" data-doc="<%= article._id %>">
+                BOOKMARK
+              </button>
+            </div>
+
+            <div class="col-6 text-center">
+              <button id="delete-button" class="btn btn-outline-danger" type="button" data-doc="<%= article._id %>">
+                DELETE
+              </button>
+            </div>
+
+          </div>
+
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <h6 class="fw-bold">Author</h6>
+              <p><%= article.byline.original %></p>
+            </div>
+
+            <div class="col-auto">
+              <h6 class="fw-bold">Organization</h6>
+              <p><%= article.byline.organization %></p>
+            </div>
+
+            <div class="col-auto">
+              <h6 class="fw-bold">Publication Date</h6>
+              <p><%= article.pub_date %></p>
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <h6 class="fw-bold">Section</h6>
+              <p><%= article.section_name %></p>
+            </div>
+
+            <div class="col-auto">
+              <h6 class="fw-bold">SubSection</h6>
+              <p><%= article.subsection_name %></p>
+            </div>
+
+            <div class="col-auto">
+              <h6 class="fw-bold">Source</h6>
+              <p><%= article.source %></p>
+            </div>
+
+            <div class="col-auto">
+              <h6 class="fw-bold">News Desk</h6>
+              <p><%= article.news_desk %></p>
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <h3 class="fw-bold">Abstract</h3>
+            <p><%= article.abstract %></p>
+          </div>
+
+          <div class="row align-items-center">
+            <h3 class="fw-bold">Lead Paragraph</h3>
+            <p><%= article.lead_paragraph %></p>
+          </div>
+
+          <div class="row align-items-center">
+            <h3 class="fw-bold">URL</h3>
+            <p><%= article.web_url %></p>
+          </div>
+
+          <div class="row align-items-center">
+            <h6 class="fw-bold">Keywords</h3>
+            <p><%= article.keywords %></p>
+          </div>
+
+          <div class="row align-items-center">
+            <div class="col-auto">
+              <h6 class="fw-bold">Word Count</h6>
+              <p><%= article.word_count %></p>
+            </div>
+
+            <div class="col-auto">
+              <h6 class="fw-bold">Type of Material</h6>
+              <p><%= article.type_of_material %></p>
+            </div>
+
+            <div class="col-auto">
+              <h6 class="fw-bold">Document Type</h6>
+              <p><%= article.doc_type %></p>
+            </div>
+          </div>
+
+          <!-- Commenting Section -->
+          <div class="row p-2 bg-dark bg-gradient justify-content-center">
+            <div class="col-10">
+              <textarea id="comments" style="height: 75px; width: 100%;" placeholder="COMMENT"></textarea>
+            </div>
+
+            <div class="col-2 text-center">
+              <button id="Comment-button" type="button" class="btn btn-outline-success" data-doc="<%= article._id %>">
+                COMMENT
+              </button>
+            </div>
+          </div>
+
+          <div class="row align-items-center">
+            <h3 class="fw-bold">Comments</h3>
+            <p><%= article.comments %></p>
+          </div>
+
+          <!-- Correcting Section -->
+          <div class="row p-2 bg-dark bg-gradient justify-content-center">
+            <div class="col-10">
+              <textarea id="correctionsOne" style="height: 75px; width: 100%;" value="<%= article.abstract %>"></textarea>
+            </div>
+
+            <div class="col-2 text-center">
+              <button id="correction-button" type="button" class="btn btn-outline-success" data-doc="<%= article._id %>">
+                CORRECT
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
     </div>
 
     <script>
@@ -126,6 +234,12 @@
             console.error(err);
           });
       });
+
+      const TITLE = document.getElementById('TITLE');
+      TITLE.addEventListener('click', (e) => {
+        location.href = '/';
+      });
+      
     </script>
   </body>
 </html>
